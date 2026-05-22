@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>臨床検査技師 就活・院試ナビ</title>
+  <meta name="description" content="臨床検査技師の新卒向け求人情報・大学院院試情報を都道府県別にまとめたサイトです。">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --bg2: #f5f5f3; --bg3: #efefed;
+      --bg-info: #e6f1fb; --bg-warn: #faeeda; --bg-danger: #fcebeb;
+      --text: #1a1a18; --text2: #6b6a65; --text3: #9c9a92;
+      --text-info: #0c447c; --text-warn: #633806; --text-danger: #791f1f;
+      --border: rgba(0,0,0,.12); --border2: rgba(0,0,0,.22);
+      --blue: #185FA5; --blue-light: #e6f1fb;
+      --green-bg: #eaf3de; --green-text: #27500a; --green-border: #c0dd97;
+      --amber-bg: #faeeda; --amber-text: #633806; --amber-border: #fac775;
+      --teal-bg: #e1f5ee; --teal-text: #085041;
+      --r-md: 8px; --r-lg: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1e1e1c; --bg2: #272725; --bg3: #2c2c2a;
+        --bg-info: #042c53; --bg-warn: #412402; --bg-danger: #501313;
+        --text: #e8e6dc; --text2: #9c9a92; --text3: #6b6a65;
+        --text-info: #85b7eb; --text-warn: #fac775; --text-danger: #f09595;
+        --border: rgba(255,255,255,.12); --border2: rgba(255,255,255,.22);
+        --blue: #378ADD; --blue-light: #042c53;
+        --green-bg: #173404; --green-text: #c0dd97; --green-border: #3b6d11;
+        --amber-bg: #412402; --amber-text: #fac775; --amber-border: #854f0b;
+        --teal-bg: #04342c; --teal-text: #9fe1cb;
+      }
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; background: var(--bg3); color: var(--text); min-height: 100vh; }
+    a { color: var(--text-info); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HEADER */
+    .hdr { background: var(--bg); border-bottom: .5px solid var(--border); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 54px; position: sticky; top: 0; z-index: 100; }
+    .hdr-l { display: flex; align-items: center; gap: 10px; }
+    .logo { width: 34px; height: 34px; background: var(--blue); border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo i { color: #fff; font-size: 17px; }
+    .site-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .site-sub { font-size: 10px; color: var(--text2); }
+    .hdr-r { display: flex; align-items: center; gap: 6px; }
+    .btn-xs { font-size: 11px; padding: 5px 11px; border: .5px solid var(--border2); border-radius: 6px; cursor: pointer; background: transparent; color: var(--text2); display: flex; align-items: center; gap: 3px; white-space: nowrap; transition: background .15s; }
+    .btn-xs:hover { background: var(--bg2); }
+    .btn-xs.on { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* HERO */
+    .hero { background: var(--bg); border-bottom: .5px solid var(--border); padding: 24px 20px 20px; }
+    .hero h1 { font-size: 20px; font-weight: 600; margin-bottom: 5px; line-height: 1.4; }
+    .hero p { font-size: 12px; color: var(--text2); margin-bottom: 16px; line-height: 1.6; }
+    .hero-stats { display: flex; gap: 8px; flex-wrap: wrap; }
+    .hstat { background: var(--bg2); border-radius: 8px; padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
+    .hstat i { font-size: 17px; color: var(--blue); }
+    .hstat-n { font-size: 18px; font-weight: 600; color: var(--text); line-height: 1; }
+    .hstat-l { font-size: 10px; color: var(--text2); margin-top: 2px; }
+
+    /* BREADCRUMB */
+    .bc { padding: 9px 20px; display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text2); flex-wrap: wrap; }
+    .bc a { cursor: pointer; color: var(--text-info); }
+    .bc .sep { color: var(--text3); }
+    .bc .cur { color: var(--text); }
+
+    /* CONTENT */
+    .content { padding: 0 20px 40px; max-width: 760px; }
+    .sec-lbl { font-size: 10px; font-weight: 600; color: var(--text2); letter-spacing: .6px; text-transform: uppercase; margin: 20px 0 10px; }
+
+    /* REGION GRID */
+    .rgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 7px; }
+    .rc { background: var(--bg); border: .5px solid var(--border); border-radius: var(--r-lg); padding: 14px 10px; cursor: pointer; transition: all .18s; display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+    .rc:not(.disabled):hover { border-color: var(--blue); background: var(--bg-info); transform: translateY(-1px); }
+    .rc.disabled { opacity: .38; pointer-events: none; }
+    .rc-icon { width: 38px; height: 38px; background: var(--bg-info); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .rc-icon i { font-size: 19px; color: var(--blue); }
+    .rc span { font-size: 12px; font-weight: 600; }
+    .rc small { font-size: 10px; color: var(--text2); }
+    .rc-badge { font-size: 9px; padding: 2px 7px; background: var(--bg-info); color: var(--text-info); border-radius: 20px; }
+
+    /* PREF GRID */
+    .stats-row { display: flex; gap: 7px; margin-bottom: 16px; flex-wrap: wrap; }
+    .scard { background: var(--bg); border: .5px solid var(--border); border-radius: var(--r-md); padding: 10px 14px; flex: 1; min-width: 80px; text-align: center; }
+    .scard-n { font-size: 20px; font-weight: 700; color: var(--blue); }
+    .scard-l { font-size: 10px; color: var(--text2); margin-top: 1px; }
+    .pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px; }
+    .pb { background: var(--bg); border: .5px solid var(--border); border-radius: var(--r-md); padding: 9px 8px; cursor: pointer; font-size: 11px; font-weight: 600; text-align: center; line-height: 1.4; transition: all .15s; }
+    .pb:hover { border-color: var(--blue); color: var(--blue); background: var(--bg-info); }
+    .pb small { display: block; font-size: 10px; color: var(--text2); font-weight: 400; margin-top: 2px; }
+
+    /* TABS */
+    .tab-bar { display: flex; border-bottom: .5px solid var(--border); margin: 6px 0 12px; }
+    .tab { padding: 8px 16px; font-size: 12px; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; }
+    .tab.on { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+    .tbadge { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 4px; margin-left: 4px; }
+    .tbi { background: var(--bg-info); color: var(--text-info); }
+    .tbg { background: var(--green-bg); color: var(--green-text); }
+
+    /* FILTER */
+    .filter-row { display: flex; gap: 5px; margin-bottom: 11px; flex-wrap: wrap; }
+    .chip { font-size: 11px; padding: 3px 10px; border: .5px solid var(--border2); border-radius: 20px; cursor: pointer; background: var(--bg); color: var(--text2); transition: all .15s; }
+    .chip:hover { border-color: var(--blue); color: var(--blue); }
+    .chip.on { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* CARDS */
+    .cards { display: flex; flex-direction: column; gap: 9px; }
+    .card { background: var(--bg); border: .5px solid var(--border); border-radius: var(--r-lg); padding: 13px 15px; transition: border-color .15s; }
+    .card:hover { border-color: var(--border2); }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 7px; margin-bottom: 6px; }
+    .card-name { font-size: 13px; font-weight: 600; line-height: 1.4; }
+    .card-org { font-size: 11px; color: var(--text2); margin-top: 2px; display: flex; align-items: center; gap: 3px; }
+    .tag-row { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 6px; }
+    .tag { font-size: 10px; padding: 2px 6px; border-radius: 5px; border: .5px solid; }
+    .tf { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+    .tp { background: var(--amber-bg); color: var(--amber-text); border-color: var(--amber-border); }
+    .tg { background: var(--bg-info); color: var(--text-info); border-color: rgba(24,95,165,.3); }
+    .tnew { background: var(--bg-info); color: var(--blue); font-size: 9px; padding: 2px 6px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; }
+    .meta-row { font-size: 11px; color: var(--text2); display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; line-height: 1.5; }
+    .meta-row span { display: flex; align-items: flex-start; gap: 3px; }
+    .notice { font-size: 10px; color: var(--text-warn); background: var(--bg-warn); border: .5px solid var(--amber-border); border-radius: 5px; padding: 3px 8px; margin: 6px 0 4px; display: flex; align-items: center; gap: 3px; }
+    .card-foot { margin-top: 9px; padding-top: 9px; border-top: .5px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px; }
+    .deadline { font-size: 11px; color: var(--text2); }
+    .deadline b { color: #a32d2d; }
+    .btn-row { display: flex; gap: 5px; }
+    .btn-link { font-size: 11px; padding: 4px 10px; border: .5px solid var(--border2); border-radius: 6px; cursor: pointer; background: transparent; color: var(--text-info); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; transition: background .15s; }
+    .btn-link:hover { background: var(--bg-info); text-decoration: none; }
+    .btn-s { font-size: 11px; padding: 4px 10px; border: .5px solid var(--border2); border-radius: 6px; cursor: pointer; background: transparent; color: var(--text); transition: background .15s; }
+    .btn-s:hover { background: var(--bg2); }
+
+    /* EMPTY */
+    .empty { text-align: center; padding: 32px; color: var(--text2); font-size: 12px; background: var(--bg); border-radius: var(--r-lg); border: .5px solid var(--border); }
+
+    /* MODAL */
+    .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: flex; align-items: center; justify-content: center; z-index: 200; }
+    .modal { background: var(--bg); border-radius: 14px; padding: 22px; width: 320px; border: .5px solid var(--border); }
+    .modal-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .modal-sub { font-size: 11px; color: var(--text2); margin-bottom: 16px; line-height: 1.6; }
+    .fg { margin-bottom: 11px; }
+    .fg label { display: block; font-size: 11px; color: var(--text2); font-weight: 600; margin-bottom: 4px; }
+    .fg input, .fg select, .fg textarea { font-size: 12px; padding: 7px 10px; border: .5px solid var(--border2); border-radius: 6px; background: var(--bg); color: var(--text); width: 100%; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(24,95,165,.12); }
+    .fg textarea { resize: vertical; min-height: 56px; }
+    .err { font-size: 11px; color: var(--text-danger); margin-bottom: 9px; display: none; }
+    .err.show { display: block; }
+    .modal-btns { display: flex; gap: 7px; }
+    .btn-p { font-size: 12px; padding: 7px 15px; border: .5px solid var(--blue); border-radius: 6px; cursor: pointer; background: var(--blue); color: #fff; font-weight: 600; transition: background .15s; }
+    .btn-p:hover { background: #0c447c; }
+    .btn-g { font-size: 12px; padding: 7px 13px; border: .5px solid var(--border2); border-radius: 6px; cursor: pointer; background: transparent; color: var(--text2); transition: background .15s; }
+    .btn-g:hover { background: var(--bg2); }
+
+    /* ADMIN */
+    .admin-wrap { padding: 0 20px 40px; max-width: 760px; }
+    .admin-hd { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 13px; flex-wrap: wrap; gap: 7px; }
+    .admin-hd-title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .atab-bar { display: flex; border-bottom: .5px solid var(--border); margin-bottom: 11px; }
+    .atab { padding: 7px 15px; font-size: 12px; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; }
+    .atab.on { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+    .form-box { background: var(--bg2); border-radius: 10px; padding: 14px; margin-bottom: 13px; }
+    .form-box-hd { font-size: 12px; font-weight: 600; margin-bottom: 11px; display: flex; align-items: center; gap: 5px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 11px; }
+    .form-full { grid-column: 1/-1; }
+    .form-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .btn-d { font-size: 11px; padding: 5px 11px; border: .5px solid #a32d2d; border-radius: 6px; cursor: pointer; background: transparent; color: #a32d2d; transition: background .15s; }
+    .btn-d:hover { background: var(--bg-danger); }
+    .tc { display: flex; gap: 12px; }
+    .tc label { display: flex; align-items: center; gap: 4px; font-size: 11px; cursor: pointer; }
+    .acard { background: var(--bg); border: .5px solid var(--border); border-radius: 9px; padding: 10px 12px; margin-bottom: 7px; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .acard-info { flex: 1; min-width: 0; }
+    .acard-name { font-size: 12px; font-weight: 600; }
+    .acard-org { font-size: 10px; color: var(--text2); margin-top: 1px; }
+    .acard-meta { font-size: 10px; color: var(--text2); margin-top: 4px; display: flex; gap: 7px; flex-wrap: wrap; }
+    .acard-acts { display: flex; gap: 4px; flex-shrink: 0; }
+    .pbadge { font-size: 10px; padding: 1px 6px; background: var(--bg2); border: .5px solid var(--border); border-radius: 20px; color: var(--text2); }
+    .btn-icon { font-size: 11px; padding: 4px 7px; border: .5px solid var(--border2); border-radius: 5px; cursor: pointer; background: transparent; color: var(--text2); transition: background .15s; }
+    .btn-icon:hover { background: var(--bg2); }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: #1a1a18; color: #fff; font-size: 12px; padding: 8px 16px; border-radius: 7px; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 999; white-space: nowrap; }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+<div id="modal-area"></div>
+
+<header class="hdr">
+  <div class="hdr-l">
+    <div class="logo"><i class="ti ti-microscope"></i></div>
+    <div>
+      <div class="site-title">臨床検査技師 就活・院試ナビ</div>
+      <div class="site-sub">全国の求人・大学院情報をまとめて検索</div>
+    </div>
+  </div>
+  <div class="hdr-r" id="hdr-r"></div>
+</header>
+
+<div id="bc-area"></div>
+<div id="app">
+  <div style="text-align:center;padding:60px;color:var(--text2);font-size:13px">
+    <i class="ti ti-loader" style="font-size:22px;display:block;margin:0 auto 10px"></i>読み込み中...
+  </div>
+</div>
+
+<script>
+// ===== 設定 =====
+const ADMIN_PW = "rinshoken2025"; // ← パスワードをここで変更
+const SK_JOBS  = "nav_jobs_v1";
+const SK_GRADS = "nav_grads_v1";
+const PREFS = ["福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
+const REGIONS = [
+  {id:"kyushu", name:"九州地方",  icon:"ti-building-hospital", ready:true},
+  {id:"shikoku",name:"四国地方",  icon:"ti-mountain",          ready:false},
+  {id:"kinki",  name:"近畿地方",  icon:"ti-building",          ready:false},
+  {id:"kanto",  name:"関東地方",  icon:"ti-building-skyscraper",ready:false},
+  {id:"other",  name:"その他",    icon:"ti-map",               ready:false},
+];
+const TL = {tf:"正職員",tp:"パート可",tg:"修士・博士"};
+const NOTICE = '<div class="notice"><i class="ti ti-alert-circle" style="font-size:11px;flex-shrink:0"></i>情報は変更の可能性があります。必ず公式サイトでご確認ください。</div>';
+
+// ===== デフォルトデータ =====
+const DJ = {"福岡県":[{id:"j_fk1",name:"臨床検査技師（新卒）",org:"九州大学病院",tags:["tf"],salary:"月給22万円〜",deadline:"2025年10月31日",detail:"一般検査・輸血・生理検査など幅広く担当。研修制度充実。",url:"https://www.hosp.kyushu-u.ac.jp/"},{id:"j_fk2",name:"臨床検査技師（新卒）",org:"福岡市立病院機構 福岡市民病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年9月30日",detail:"一般検査・微生物検査など。",url:"https://www.fcho.jp/fcmh/"},{id:"j_fk3",name:"臨床検査技師（新卒・パート可）",org:"医療法人 博愛会 博愛病院",tags:["tf","tp"],salary:"月給20万円〜",deadline:"随時募集",detail:"検体検査・生理検査。日勤のみ相談可。",url:"https://www.hakuai.or.jp/"},{id:"j_fk4",name:"臨床検査技師（新卒）",org:"福岡県立医療センター",tags:["tf"],salary:"月給21万円〜",deadline:"2025年9月20日",detail:"急性期・高度医療を担う県立病院。",url:"https://www.fukuoka-pfhmc.jp/"}],"佐賀県":[{id:"j_sg1",name:"臨床検査技師（新卒）",org:"佐賀大学医学部附属病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年8月31日",detail:"全部門配属あり。大学病院ならではの症例数。",url:"https://www.hosp.saga-u.ac.jp/"},{id:"j_sg2",name:"臨床検査技師",org:"佐賀県医療センター好生館",tags:["tf"],salary:"月給20万円〜",deadline:"随時募集",detail:"救命救急センター併設。新卒歓迎。",url:"https://www.kouseikan.jp/"}],"長崎県":[{id:"j_ng1",name:"臨床検査技師（新卒）",org:"長崎大学病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年9月15日",detail:"感染症・免疫検査に強い環境。",url:"https://www.mh.nagasaki-u.ac.jp/"},{id:"j_ng2",name:"臨床検査技師",org:"長崎みなとメディカルセンター",tags:["tf"],salary:"月給20万円〜",deadline:"2025年10月1日",detail:"急性期病院。チームで働ける環境。",url:"https://www.nmhp.jp/"},{id:"j_ng3",name:"臨床検査技師（新卒）",org:"国立病院機構 長崎医療センター",tags:["tf"],salary:"月給21万円〜",deadline:"2025年9月30日",detail:"国立病院機構。充実した研修プログラム。",url:"https://nagasaki.hosp.go.jp/"}],"熊本県":[{id:"j_km1",name:"臨床検査技師（新卒）",org:"熊本大学病院",tags:["tf"],salary:"月給22万円〜",deadline:"2025年9月30日",detail:"幅広い専門部門への配属。院内認定制度あり。",url:"https://www.hosp.kumamoto-u.ac.jp/"},{id:"j_km2",name:"臨床検査技師",org:"熊本赤十字病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年10月31日",detail:"三次救急指定病院。地域医療を支える。",url:"https://www.kumamoto-med.jrc.or.jp/"},{id:"j_km3",name:"臨床検査技師（新卒）",org:"熊本市民病院",tags:["tf"],salary:"月給20万円〜",deadline:"随時募集",detail:"市立病院。急性期〜回復期まで幅広い経験。",url:"https://www.kumamoto-city-hospital.jp/"}],"大分県":[{id:"j_ot1",name:"臨床検査技師（新卒）",org:"大分大学医学部附属病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年10月15日",detail:"大学病院。新卒歓迎。研修体制充実。",url:"https://www.hosp.oita-u.ac.jp/"},{id:"j_ot2",name:"臨床検査技師",org:"大分県立病院",tags:["tf"],salary:"月給20万円〜",deadline:"随時募集",detail:"地域の中核病院。がん診療連携拠点病院。",url:"https://www.pref.oita.jp/site/oita-pref-hospital/"}],"宮崎県":[{id:"j_mz1",name:"臨床検査技師（常勤）",org:"宮崎県立宮崎病院",tags:["tf"],salary:"月給22〜25万円",deadline:"随時募集",detail:"県立基幹病院。検体・生理・輸血など全部門。",url:"https://www.pref.miyazaki.lg.jp/miyazaki-hospital/"},{id:"j_mz2",name:"臨床検査技師（新卒歓迎）",org:"宮崎大学医学部附属病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年9月30日",detail:"大学病院。教育研修体制が充実。",url:"https://www.hosp.miyazaki-u.ac.jp/"},{id:"j_mz3",name:"臨床検査技師（未経験歓迎）",org:"済生会日向病院",tags:["tf"],salary:"月給20万円〜",deadline:"随時募集",detail:"土日祝休み・年間休日122日。生理〜検体各種学べる。",url:"https://www.saiseikai.or.jp/"}],"鹿児島県":[{id:"j_kg1",name:"臨床検査技師（新卒）",org:"鹿児島大学病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年10月31日",detail:"離島・へき地医療に強い。感染症・免疫分野も充実。",url:"https://www.hosp.kagoshima-u.ac.jp/"},{id:"j_kg2",name:"臨床検査技師（常勤）",org:"鹿児島生協病院",tags:["tf"],salary:"月給19〜23万円",deadline:"随時募集",detail:"賞与3.2ヶ月・退職金あり。住宅手当支給。",url:"https://www.nanpuh.or.jp/"},{id:"j_kg3",name:"臨床検査技師",org:"鹿児島博愛会病院",tags:["tf","tp"],salary:"月給20万円〜",deadline:"随時募集",detail:"検体・生理・輸血検査全般。週休2日。",url:"https://www.hakuaikai.or.jp/"}],"沖縄県":[{id:"j_ok1",name:"臨床検査技師（新卒）",org:"琉球大学病院",tags:["tf"],salary:"月給21万円〜",deadline:"2025年9月30日",detail:"感染症・熱帯病に強い大学病院。国際色豊か。",url:"https://hospital.u-ryukyu.ac.jp/"},{id:"j_ok2",name:"臨床検査技師（選考採用）",org:"沖縄県立病院（病院事業局）",tags:["tf"],salary:"月給22万円〜",deadline:"随時募集（通年採用）",detail:"県立8病院を運営。離島診療所勤務あり。",url:"https://byoinjigyokyoku.pref.okinawa.jp/recruit/"},{id:"j_ok3",name:"臨床検査技師",org:"中頭病院",tags:["tf","tp"],salary:"月給20万円〜",deadline:"随時募集",detail:"地域医療支援病院。2023年新築移転。",url:"https://www.nakagami.or.jp/"},{id:"j_ok4",name:"臨床検査技師",org:"北部地区医師会病院",tags:["tf"],salary:"月給20〜24万円",deadline:"随時募集",detail:"名護市の基幹病院。検体検査全般担当。",url:"https://www.hokubuishikai.or.jp/hospital/"}]};
+const DG = {"福岡県":[{id:"g_fk1",name:"医学系研究科 医科学専攻",org:"九州大学大学院",tags:["tg"],exam:"8月（推定）",session:"要公式サイト確認",courses:"臨床検査医学・病理・感染症ほか",detail:"多彩な研究室。社会人入試あり。",url:"https://www.med.kyushu-u.ac.jp/grad/"},{id:"g_fk2",name:"保健学専攻 検査技術科学分野",org:"九州大学大学院 医学研究院",tags:["tg"],exam:"9月（推定）",session:"要公式サイト確認",courses:"生理機能検査学・臨床分析科学ほか",detail:"臨床検査技師免許保持者対象の専門コース。",url:"https://www.med.kyushu-u.ac.jp/grad/"}],"佐賀県":[{id:"g_sg1",name:"医学系研究科（修士・博士）",org:"佐賀大学大学院",tags:["tg"],exam:"8〜9月（推定）",session:"要公式サイト確認",courses:"臨床検査医学・免疫・感染症ほか",detail:"社会人入試制度あり。",url:"https://www.med.saga-u.ac.jp/"}],"長崎県":[{id:"g_ng1",name:"熱帯医学・グローバルヘルス研究科",org:"長崎大学大学院",tags:["tg"],exam:"7月（推定）",session:"要公式サイト確認",courses:"感染症学・熱帯病学・国際保健",detail:"感染症・熱帯病の研究に特化。WHO連携。",url:"https://www.tm.nagasaki-u.ac.jp/"},{id:"g_ng2",name:"医歯薬学総合研究科 保健学専攻",org:"長崎大学大学院",tags:["tg"],exam:"8月（推定）",session:"要公式サイト確認",courses:"臨床検査学・医用検査科学ほか",detail:"臨床検査技師向けコースあり。修士・博士課程。",url:"https://www.nagasaki-u.ac.jp/ja/graduate/"}],"熊本県":[{id:"g_km1",name:"医学教育部 修士課程（医科学専攻）",org:"熊本大学大学院",tags:["tg"],exam:"第1期：8月5日（推薦：7月5日）",session:"5月9日（土）第1期入試説明会",courses:"生理機能検査学・微生物検査学・血液免疫病態解析学ほか",detail:"修士・博士課程。社会人入試あり。願書受付：7月3日〜9日。",url:"https://www.medphas.kumamoto-u.ac.jp/medgrad/admissions/entrance_exam/"}],"大分県":[{id:"g_ot1",name:"医学系研究科（修士・博士）",org:"大分大学大学院",tags:["tg"],exam:"8〜9月（推定）",session:"要公式サイト確認",courses:"臨床検査医学・病態診断学ほか",detail:"医学・保健学の大学院。社会人入試あり。",url:"https://www.med.oita-u.ac.jp/"}],"宮崎県":[{id:"g_mz1",name:"医学獣医学総合研究科 医学専攻",org:"宮崎大学大学院",tags:["tg"],exam:"第1期：7〜8月（推定）",session:"要公式サイト確認",courses:"検査診断学・病理学・微生物学ほか",detail:"願書受付7/22〜25・試験8/18〜29（令和7年度実績）。",url:"https://www.miyazaki-u.ac.jp/exam/graduate-exam/"}],"鹿児島県":[{id:"g_kg1",name:"医歯学総合研究科 保健学専攻",org:"鹿児島大学大学院",tags:["tg"],exam:"8〜9月（推定）",session:"要公式サイト確認",courses:"臨床検査学・生体医工学・感染症学ほか",detail:"保健学専攻あり。臨床検査技師向け研究室多数。",url:"https://www.kagoshima-u.ac.jp/exam/in-nyushi.html"}],"沖縄県":[{id:"g_ok1",name:"医学研究科・保健学研究科",org:"琉球大学大学院",tags:["tg"],exam:"令和8年度募集要項公開済（2025年7月）",session:"要公式サイト確認",courses:"臨床検査学・感染症学・熱帯医学ほか",detail:"保健学研究科に臨床検査技師関連コースあり。博士前期・後期課程。",url:"https://www.u-ryukyu.ac.jp/admissions/graduateschool/"}]};
+
+// ===== STATE =====
+let S = {region:null,pref:null,tab:"job",filter:"all"};
+let isAdmin = false, adminTab = "job", editItem = null;
+let JOBS = {}, GRADS = {};
+
+// ===== localStorage（GitHub Pages対応） =====
+function loadData() {
+  try {
+    const jr = localStorage.getItem(SK_JOBS);
+    const gr = localStorage.getItem(SK_GRADS);
+    JOBS  = jr ? JSON.parse(jr) : JSON.parse(JSON.stringify(DJ));
+    GRADS = gr ? JSON.parse(gr) : JSON.parse(JSON.stringify(DG));
+    if (!jr) localStorage.setItem(SK_JOBS,  JSON.stringify(JOBS));
+    if (!gr) localStorage.setItem(SK_GRADS, JSON.stringify(GRADS));
+  } catch(e) {
+    JOBS  = JSON.parse(JSON.stringify(DJ));
+    GRADS = JSON.parse(JSON.stringify(DG));
+  }
+  render();
+}
+function saveJ() { try { localStorage.setItem(SK_JOBS,  JSON.stringify(JOBS));  } catch(e){} }
+function saveG() { try { localStorage.setItem(SK_GRADS, JSON.stringify(GRADS)); } catch(e){} }
+
+// ===== UTILS =====
+function gid(p) { return p + "_" + Date.now(); }
+function esc(s) { return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+function toast(m) { const t = document.getElementById("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2200); }
+
+// ===== RENDER =====
+function render() {
+  const hr = document.getElementById("hdr-r");
+  hr.innerHTML = isAdmin
+    ? '<button class="btn-xs on"><i class="ti ti-lock-open" style="font-size:11px"></i>管理中</button><button class="btn-xs" onclick="logout()"><i class="ti ti-logout" style="font-size:11px"></i>ログアウト</button>'
+    : '<button class="btn-xs" onclick="showLogin()"><i class="ti ti-settings" style="font-size:11px"></i>管理者ログイン</button>';
+  const app = document.getElementById("app");
+  const bc  = document.getElementById("bc-area");
+  if (isAdmin) { bc.innerHTML = ""; app.innerHTML = ""; renderAdmin(app); }
+  else { renderBC(bc); app.innerHTML = ""; renderPublic(app); }
+}
+
+function renderBC(bc) {
+  let h = '<a onclick="goHome()">ホーム</a>';
+  if (S.region) {
+    const r = REGIONS.find(x => x.id === S.region);
+    h += '<span class="sep"><i class="ti ti-chevron-right" style="font-size:10px"></i></span>';
+    h += S.pref ? '<a onclick="goPref()">' + r.name + '</a>' : '<span class="cur">' + r.name + '</span>';
+  }
+  if (S.pref) h += '<span class="sep"><i class="ti ti-chevron-right" style="font-size:10px"></i></span><span class="cur">' + S.pref + '</span>';
+  bc.innerHTML = '<div class="bc">' + h + '</div>';
+}
+
+function renderPublic(el) {
+  const wrap = document.createElement("div");
+  if (!S.region) { renderHero(el); wrap.className = "content"; el.appendChild(wrap); renderRegion(wrap); }
+  else if (!S.pref) { wrap.className = "content"; el.appendChild(wrap); renderPref(wrap); }
+  else { wrap.className = "content"; el.appendChild(wrap); renderInfo(wrap); }
+}
+
+function renderHero(el) {
+  const tj = PREFS.reduce((a,p) => a + (JOBS[p]||[]).length, 0);
+  const tg = PREFS.reduce((a,p) => a + (GRADS[p]||[]).length, 0);
+  el.insertAdjacentHTML("beforeend",
+    '<div class="hero"><h1>臨床検査技師のための<br>就活・院試情報ナビ</h1>'
+    + '<p>新卒向け求人情報・大学院入試情報を都道府県別にまとめています。<br>まずは地方を選択してください。</p>'
+    + '<div class="hero-stats">'
+    + '<div class="hstat"><i class="ti ti-briefcase"></i><div><div class="hstat-n">' + tj + '</div><div class="hstat-l">求人掲載数</div></div></div>'
+    + '<div class="hstat"><i class="ti ti-school"></i><div><div class="hstat-n">' + tg + '</div><div class="hstat-l">院試情報数</div></div></div>'
+    + '<div class="hstat"><i class="ti ti-map-pin"></i><div><div class="hstat-n">' + PREFS.length + '</div><div class="hstat-l">対応県数</div></div></div>'
+    + '</div></div>');
+}
+
+function renderRegion(el) {
+  el.innerHTML = '<div class="sec-lbl">地方を選択</div>'
+    + '<div class="rgrid">' + REGIONS.map(r =>
+      '<div class="rc' + (r.ready ? '' : ' disabled') + '" onclick="selRegion(\'' + r.id + '\')">'
+      + '<div class="rc-icon"><i class="ti ' + r.icon + '"></i></div>'
+      + '<span>' + r.name + '</span>'
+      + (r.ready ? '<span class="rc-badge">対応済</span>' : '<small>準備中</small>')
+      + '</div>').join("") + '</div>';
+}
+
+function renderPref(el) {
+  const tj = PREFS.reduce((a,p) => a + (JOBS[p]||[]).length, 0);
+  const tg = PREFS.reduce((a,p) => a + (GRADS[p]||[]).length, 0);
+  el.innerHTML = '<h2 style="font-size:17px;font-weight:600;margin:16px 0 4px">九州地方</h2>'
+    + '<p style="font-size:11px;color:var(--text2);margin-bottom:14px">都道府県を選んでください</p>'
+    + '<div class="stats-row">'
+    + '<div class="scard"><div class="scard-n">' + tj + '</div><div class="scard-l">求人数</div></div>'
+    + '<div class="scard"><div class="scard-n">' + tg + '</div><div class="scard-l">院試情報</div></div>'
+    + '<div class="scard"><div class="scard-n">' + PREFS.length + '</div><div class="scard-l">対応県数</div></div>'
+    + '</div><div class="sec-lbl">都道府県</div>'
+    + '<div class="pgrid">' + PREFS.map(p => {
+      const j = (JOBS[p]||[]).length, g = (GRADS[p]||[]).length;
+      return '<div class="pb" onclick="selPref(\'' + p + '\')">' + p + '<small>求人' + j + '件・院試' + g + '件</small></div>';
+    }).join("") + '</div>';
+}
+
+function renderInfo(el) {
+  const j = JOBS[S.pref]||[], g = GRADS[S.pref]||[];
+  el.innerHTML = '<h2 style="font-size:17px;font-weight:600;margin:16px 0 12px">' + S.pref + '</h2>'
+    + '<div class="tab-bar">'
+    + '<div class="tab' + (S.tab==="job"?" on":"") + '" onclick="setTab(\'job\')">求人情報<span class="tbadge tbi">' + j.length + '</span></div>'
+    + '<div class="tab' + (S.tab==="grad"?" on":"") + '" onclick="setTab(\'grad\')">大学院・院試<span class="tbadge tbg">' + g.length + '</span></div>'
+    + '</div>'
+    + (S.tab==="job" ? '<div class="filter-row">'
+      + [{v:"all",l:"すべて"},{v:"tf",l:"正職員"},{v:"tp",l:"パート可"}].map(o =>
+        '<div class="chip' + (S.filter===o.v?" on":"") + '" onclick="setFilter(\'' + o.v + '\')">' + o.l + '</div>').join("")
+      + '</div>' : '')
+    + '<div id="carea" class="cards"></div>';
+  renderCards();
+}
+
+function renderCards() {
+  const area = document.getElementById("carea"); if (!area) return;
+  let list = S.tab==="job" ? (JOBS[S.pref]||[]) : (GRADS[S.pref]||[]);
+  if (S.tab==="job" && S.filter!=="all") list = list.filter(x => x.tags.includes(S.filter));
+  if (!list.length) { area.innerHTML = '<div class="empty"><i class="ti ti-database-off" style="font-size:22px;display:block;margin:0 auto 10px"></i>条件に合う情報がありません</div>'; return; }
+  area.innerHTML = list.map(item => {
+    const tags = item.tags.map(t => '<span class="tag ' + t + '">' + (TL[t]||t) + '</span>').join("");
+    const btns = '<div class="btn-row">'
+      + '<a class="btn-link" href="' + esc(item.url) + '" target="_blank" rel="noopener"><i class="ti ti-external-link" style="font-size:11px"></i>公式サイト</a>'
+      + '</div>';
+    if (S.tab==="job") return '<div class="card">'
+      + '<div class="card-top"><div><div class="card-name">' + esc(item.name) + '</div>'
+      + '<div class="card-org"><i class="ti ti-building-hospital" style="font-size:11px"></i>' + esc(item.org) + '</div></div>'
+      + '<span class="tnew">NEW</span></div>'
+      + '<div class="tag-row">' + tags + '</div>'
+      + '<div class="meta-row"><span><i class="ti ti-coin" style="font-size:11px;margin-top:1px"></i>' + esc(item.salary) + '</span></div>'
+      + '<div class="meta-row"><span><i class="ti ti-info-circle" style="font-size:11px;margin-top:1px"></i>' + esc(item.detail) + '</span></div>'
+      + NOTICE + '<div class="card-foot"><div class="deadline">締切：<b>' + esc(item.deadline) + '</b></div>' + btns + '</div></div>';
+    else return '<div class="card">'
+      + '<div class="card-top"><div><div class="card-name">' + esc(item.name) + '</div>'
+      + '<div class="card-org"><i class="ti ti-school" style="font-size:11px"></i>' + esc(item.org) + '</div></div></div>'
+      + '<div class="tag-row">' + tags + '</div>'
+      + '<div class="meta-row"><span><i class="ti ti-calendar" style="font-size:11px;margin-top:1px"></i>試験時期：' + esc(item.exam) + '</span></div>'
+      + (item.session ? '<div class="meta-row"><span><i class="ti ti-presentation" style="font-size:11px;margin-top:1px"></i>説明会：' + esc(item.session) + '</span></div>' : '')
+      + '<div class="meta-row"><span><i class="ti ti-microscope" style="font-size:11px;margin-top:1px"></i>' + esc(item.courses) + '</span></div>'
+      + '<div class="meta-row"><span><i class="ti ti-info-circle" style="font-size:11px;margin-top:1px"></i>' + esc(item.detail) + '</span></div>'
+      + NOTICE + '<div class="card-foot"><div></div>' + btns + '</div></div>';
+  }).join("");
+}
+
+// ===== LOGIN =====
+function showLogin() {
+  document.getElementById("modal-area").innerHTML =
+    '<div class="modal-bg" onclick="if(event.target===this)closeModal()">'
+    + '<div class="modal">'
+    + '<div class="modal-title"><i class="ti ti-lock" style="color:var(--blue);font-size:16px"></i>管理者ログイン</div>'
+    + '<div class="modal-sub">管理者専用画面です。<br>パスワードを入力してください。</div>'
+    + '<div class="fg"><label>パスワード</label>'
+    + '<input type="password" id="pw" placeholder="パスワードを入力" onkeydown="if(event.key===\'Enter\')doLogin()"></div>'
+    + '<div class="err" id="login-err">パスワードが正しくありません</div>'
+    + '<div class="modal-btns"><button class="btn-p" onclick="doLogin()">ログイン</button><button class="btn-g" onclick="closeModal()">キャンセル</button></div>'
+    + '</div></div>';
+  setTimeout(() => { const el = document.getElementById("pw"); if (el) el.focus(); }, 50);
+}
+function doLogin() {
+  const pw = (document.getElementById("pw")||{}).value||"";
+  if (pw === ADMIN_PW) { closeModal(); isAdmin = true; toast("✓ ログインしました"); render(); }
+  else { const e = document.getElementById("login-err"); if (e) e.classList.add("show"); }
+}
+function closeModal() { document.getElementById("modal-area").innerHTML = ""; }
+function logout() { isAdmin = false; editItem = null; toast("ログアウトしました"); render(); }
+
+// ===== ADMIN =====
+function renderAdmin(el) {
+  const allJ = PREFS.flatMap(p => (JOBS[p]||[]).map(x => ({...x, pref:p})));
+  const allG = PREFS.flatMap(p => (GRADS[p]||[]).map(x => ({...x, pref:p})));
+  el.innerHTML = '<div class="admin-wrap">'
+    + '<div class="admin-hd"><div class="admin-hd-title"><i class="ti ti-settings" style="font-size:15px"></i>管理画面</div>'
+    + '<button class="btn-p" onclick="showForm()"><i class="ti ti-plus" style="font-size:11px"></i> 新規追加</button></div>'
+    + '<div id="form-area"></div>'
+    + '<div class="atab-bar">'
+    + '<div class="atab' + (adminTab==="job"?" on":"") + '" onclick="setATab(\'job\')">求人情報<span class="tbadge tbi">' + allJ.length + '</span></div>'
+    + '<div class="atab' + (adminTab==="grad"?" on":"") + '" onclick="setATab(\'grad\')">大学院・院試<span class="tbadge tbg">' + allG.length + '</span></div>'
+    + '</div><div id="alist"></div></div>';
+  renderAList();
+}
+
+function renderAList() {
+  const area = document.getElementById("alist"); if (!area) return;
+  const list = adminTab==="job"
+    ? PREFS.flatMap(p => (JOBS[p]||[]).map(x => ({...x,pref:p})))
+    : PREFS.flatMap(p => (GRADS[p]||[]).map(x => ({...x,pref:p})));
+  if (!list.length) { area.innerHTML = '<div class="empty">データがありません</div>'; return; }
+  area.innerHTML = list.map(item => {
+    const tags = item.tags.map(t => '<span class="tag ' + t + '">' + (TL[t]||t) + '</span>').join("");
+    const meta = adminTab==="job"
+      ? '<span>締切：' + esc(item.deadline) + '</span><span>' + esc(item.salary) + '</span>'
+      : '<span>試験：' + esc(item.exam) + '</span>';
+    return '<div class="acard"><div class="acard-info">'
+      + '<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap"><span class="acard-name">' + esc(item.name) + '</span><span class="pbadge">' + item.pref + '</span></div>'
+      + '<div class="acard-org">' + esc(item.org) + '</div>'
+      + '<div class="acard-meta">' + meta + '</div>'
+      + '<div class="tag-row" style="margin-top:5px;margin-bottom:0">' + tags + '</div></div>'
+      + '<div class="acard-acts">'
+      + '<button class="btn-icon" title="編集" onclick="editEntry(\'' + item.id + '\',\'' + adminTab + '\',\'' + item.pref + '\')"><i class="ti ti-edit" style="font-size:11px"></i></button>'
+      + '<button class="btn-icon" title="削除" style="border-color:#a32d2d;color:#a32d2d" onclick="delEntry(\'' + item.id + '\',\'' + adminTab + '\',\'' + item.pref + '\')"><i class="ti ti-trash" style="font-size:11px"></i></button>'
+      + '</div></div>';
+  }).join("");
+}
+
+function showForm() { editItem = null; renderForm(adminTab, "", null); }
+function editEntry(id, type, pref) {
+  const l = type==="job" ? (JOBS[pref]||[]) : (GRADS[pref]||[]);
+  const item = l.find(x => x.id===id); if (!item) return;
+  editItem = {id, type, pref}; renderForm(type, pref, item);
+}
+function renderForm(type, pv, item) {
+  const fa = document.getElementById("form-area"); if (!fa) return;
+  const ie = !!item, v = k => esc(item ? (item[k]||"") : "");
+  const po = PREFS.map(p => '<option value="' + p + '"' + (p===pv?" selected":"") + '>' + p + '</option>').join("");
+  let h = '<div class="form-box"><div class="form-box-hd"><i class="ti ti-' + (ie?"edit":"plus") + '" style="font-size:13px"></i>'
+    + (ie ? (type==="job"?"求人情報を編集":"院試情報を編集") : (type==="job"?"求人情報を追加":"院試情報を追加")) + '</div>'
+    + '<div class="fg"><label>都道府県</label><select id="f_p">' + po + '</select></div>'
+    + '<div class="form-grid">';
+  if (type==="job") {
+    h += '<div class="fg form-full"><label>求人名 *</label><input id="f_n" value="' + v("name") + '" placeholder="例：臨床検査技師（新卒）"></div>'
+      + '<div class="fg form-full"><label>医療機関名 *</label><input id="f_o" value="' + v("org") + '" placeholder="例：○○大学病院"></div>'
+      + '<div class="fg"><label>給与</label><input id="f_s" value="' + v("salary") + '" placeholder="例：月給20万円〜"></div>'
+      + '<div class="fg"><label>応募締切</label><input id="f_dl" value="' + v("deadline") + '" placeholder="例：2025年10月31日"></div>'
+      + '<div class="fg form-full"><label>業務内容・詳細</label><textarea id="f_d" placeholder="業務内容・待遇など">' + v("detail") + '</textarea></div>'
+      + '<div class="fg form-full"><label>公式サイトURL</label><input id="f_u" value="' + v("url") + '" placeholder="https://..."></div>'
+      + '<div class="fg form-full"><label>雇用形態</label><div class="tc">'
+      + '<label><input type="checkbox" id="t_tf"' + (item&&item.tags.includes("tf")?" checked":"") + '>正職員</label>'
+      + '<label><input type="checkbox" id="t_tp"' + (item&&item.tags.includes("tp")?" checked":"") + '>パート可</label>'
+      + '</div></div>';
+  } else {
+    h += '<div class="fg form-full"><label>研究科・専攻名 *</label><input id="f_n" value="' + v("name") + '" placeholder="例：医学系研究科 医科学専攻"></div>'
+      + '<div class="fg form-full"><label>大学院名 *</label><input id="f_o" value="' + v("org") + '" placeholder="例：○○大学大学院"></div>'
+      + '<div class="fg"><label>試験時期</label><input id="f_ex" value="' + v("exam") + '" placeholder="例：8月（推定）"></div>'
+      + '<div class="fg"><label>説明会</label><input id="f_se" value="' + v("session") + '" placeholder="例：5月10日（土）"></div>'
+      + '<div class="fg form-full"><label>関連講座</label><input id="f_co" value="' + v("courses") + '" placeholder="例：臨床検査学・病理学ほか"></div>'
+      + '<div class="fg form-full"><label>詳細・備考</label><textarea id="f_d" placeholder="試験内容・募集人数など">' + v("detail") + '</textarea></div>'
+      + '<div class="fg form-full"><label>公式サイトURL</label><input id="f_u" value="' + v("url") + '" placeholder="https://..."></div>';
+  }
+  h += '</div><div class="form-actions">'
+    + '<button class="btn-p" onclick="submitForm(\'' + type + '\')">' + (ie?"更新する":"追加する") + '</button>'
+    + '<button class="btn-g" onclick="cancelForm()">キャンセル</button>'
+    + (ie ? '<button class="btn-d" onclick="delEntry(\'' + item.id + '\',\'' + type + '\',\'' + pv + '\')">削除</button>' : '')
+    + '</div></div>';
+  fa.innerHTML = h;
+  fa.scrollIntoView({behavior:"smooth", block:"nearest"});
+  setTimeout(() => { const el = document.getElementById("f_n"); if (el) el.focus(); }, 80);
+}
+
+function submitForm(type) {
+  const pref = (document.getElementById("f_p")||{}).value||"";
+  const name = ((document.getElementById("f_n")||{}).value||"").trim();
+  const org  = ((document.getElementById("f_o")||{}).value||"").trim();
+  if (!name||!org) { toast("⚠ 名称と機関名は必須です"); return; }
+  const url    = ((document.getElementById("f_u")||{}).value||"").trim();
+  const detail = ((document.getElementById("f_d")||{}).value||"").trim();
+  if (type==="job") {
+    const tags = [];
+    if (document.getElementById("t_tf")?.checked) tags.push("tf");
+    if (document.getElementById("t_tp")?.checked) tags.push("tp");
+    if (!tags.length) tags.push("tf");
+    const e = {id:editItem?editItem.id:gid("j"),name,org,tags,
+      salary:((document.getElementById("f_s")||{}).value||"").trim(),
+      deadline:((document.getElementById("f_dl")||{}).value||"随時募集").trim(),detail,url};
+    if (editItem) {
+      if (editItem.pref!==pref) { JOBS[editItem.pref]=(JOBS[editItem.pref]||[]).filter(x=>x.id!==editItem.id); if(!JOBS[pref])JOBS[pref]=[]; JOBS[pref].push(e); }
+      else { const i=(JOBS[pref]||[]).findIndex(x=>x.id===editItem.id); if(i>=0)JOBS[pref][i]=e; else { if(!JOBS[pref])JOBS[pref]=[]; JOBS[pref].push(e); } }
+    } else { if(!JOBS[pref])JOBS[pref]=[]; JOBS[pref].push(e); }
+    saveJ(); toast("✓ 求人情報を" + (editItem?"更新":"追加") + "しました");
+  } else {
+    const e = {id:editItem?editItem.id:gid("g"),name,org,tags:["tg"],
+      exam:((document.getElementById("f_ex")||{}).value||"").trim(),
+      session:((document.getElementById("f_se")||{}).value||"").trim(),
+      courses:((document.getElementById("f_co")||{}).value||"").trim(),detail,url};
+    if (editItem) {
+      if (editItem.pref!==pref) { GRADS[editItem.pref]=(GRADS[editItem.pref]||[]).filter(x=>x.id!==editItem.id); if(!GRADS[pref])GRADS[pref]=[]; GRADS[pref].push(e); }
+      else { const i=(GRADS[pref]||[]).findIndex(x=>x.id===editItem.id); if(i>=0)GRADS[pref][i]=e; else { if(!GRADS[pref])GRADS[pref]=[]; GRADS[pref].push(e); } }
+    } else { if(!GRADS[pref])GRADS[pref]=[]; GRADS[pref].push(e); }
+    saveG(); toast("✓ 院試情報を" + (editItem?"更新":"追加") + "しました");
+  }
+  editItem = null; cancelForm(); renderAList();
+}
+
+function delEntry(id, type, pref) {
+  if (!confirm("この情報を削除しますか？")) return;
+  if (type==="job") { JOBS[pref]=(JOBS[pref]||[]).filter(x=>x.id!==id); saveJ(); }
+  else { GRADS[pref]=(GRADS[pref]||[]).filter(x=>x.id!==id); saveG(); }
+  toast("✓ 削除しました"); cancelForm(); renderAList();
+}
+function cancelForm() { editItem = null; const fa = document.getElementById("form-area"); if (fa) fa.innerHTML = ""; }
+function setATab(t) { adminTab = t; renderAList(); }
+
+// ===== NAV =====
+function selRegion(id) { if (!REGIONS.find(x=>x.id===id)?.ready) return; S = {region:id,pref:null,tab:"job",filter:"all"}; render(); }
+function selPref(p)    { S.pref=p; S.tab="job"; S.filter="all"; render(); }
+function setTab(t)     { S.tab=t; S.filter="all"; const w=document.querySelector(".content"); if(w)renderInfo(w); }
+function setFilter(f)  { S.filter=f; renderCards(); }
+function goHome()      { S={region:null,pref:null,tab:"job",filter:"all"}; render(); }
+function goPref()      { S.pref=null; S.tab="job"; S.filter="all"; render(); }
+
+// ===== START =====
+loadData();
+</script>
+</body>
+</html>
